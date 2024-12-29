@@ -1,5 +1,4 @@
-//import { useState, useRef } from 'react';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { ArrowButton } from 'src/ui/arrow-button';
 import { Button } from 'src/ui/button';
 import { RadioGroup } from 'src/ui/radio-group';
@@ -7,18 +6,17 @@ import { Select } from 'src/ui/select';
 import { Separator } from 'src/ui/separator';
 import { Text } from 'src/ui/text';
 import {
-	//OptionType,
 	ArticleStateType,
-	//defaultArticleState,
 	fontFamilyOptions,
 	fontColors,
 	backgroundColors,
 	contentWidthArr,
 	fontSizeOptions,
 } from 'src/constants/articleProps';
-
+import { useOutsideClickClose } from 'src/ui/select/hooks/useOutsideClickClose';
 import styles from './ArticleParamsForm.module.scss';
 import clsx from 'clsx';
+
 type ArticleParamsFormProps = {
 	articleState: ArticleStateType;
 	onReset: () => void;
@@ -32,6 +30,15 @@ export const ArticleParamsForm = ({
 }: ArticleParamsFormProps) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [localState, setLocalState] = useState<ArticleStateType>(articleState);
+	const rootRef = useRef<HTMLDivElement>(null);
+
+	useOutsideClickClose({
+		isOpen,
+		rootRef,
+		onClose: () => setIsOpen(false),
+		onChange: setIsOpen,
+	});
+
 	const handleOpen = () => {
 		setIsOpen((prevState) => !prevState);
 	};
