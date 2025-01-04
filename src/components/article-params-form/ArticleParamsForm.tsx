@@ -25,11 +25,11 @@ type ArticleParamsFormProps = {
 };
 
 export const ArticleParamsForm = ({
-	articleStyles,
+	//articleStyles,
 	setArticleStyles,
 }: ArticleParamsFormProps) => {
 	const [isOpen, setIsOpen] = useState(false);
-	const [options, setOptions] = useState(articleStyles);
+	const [options, setOptions] = useState<ArticleStateType>(defaultArticleState);
 	const wrapperRef = useRef<HTMLDivElement | null>(null);
 
 	// Hook to handle opening and closing the form
